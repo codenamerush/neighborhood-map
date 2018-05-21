@@ -12,10 +12,10 @@ var ViewModel = function () {
     this.cuisines = ko.observableArray([]);
     this.locations = ko.observableArray([]);
     this.search = ko.observable();
-    this.enableSideNav = function(){
+    this.enableSideNav = function () {
         self.sidenav('active');
     }
-    this.disableSideNav = function(){
+    this.disableSideNav = function () {
         self.sidenav('disabled');
     }
     this.loadInfo = function (element) {
@@ -28,7 +28,7 @@ var ViewModel = function () {
         });
         hamburgerClose();
     };
-    this.search.subscribe(function(cuisine) {
+    this.search.subscribe(function (cuisine) {
         self.locations().forEach(function (location) {
             var isLocationVisible = (cuisine === 'All' || location.cuisines.indexOf(cuisine) > -1);
             location.isLocationVisible(isLocationVisible);
@@ -41,9 +41,9 @@ var ViewModel = function () {
         restaurants.forEach(function (r, index) {
             r.restaurant.index = index;
             r.restaurant.isLocationVisible = ko.observable(true);
-            r.restaurant.cuisines.split(",").forEach(function(cuisine) {
+            r.restaurant.cuisines.split(",").forEach(function (cuisine) {
                 cuisine = cuisine.trim();
-                if (self.cuisines.indexOf(cuisine) < 0 ){
+                if (self.cuisines.indexOf(cuisine) < 0) {
                     self.cuisines.push(cuisine);
                 }
             });
@@ -108,7 +108,7 @@ function initMap() {
         zoom: 14
     });
 
-    google.maps.Marker.prototype.bounceStop = function(){
+    google.maps.Marker.prototype.bounceStop = function () {
         var element = this;
         element.setAnimation(google.maps.Animation.BOUNCE);
         setTimeout(function () {
@@ -125,8 +125,8 @@ function initMap() {
 }
 
 // Just notifying user if maps API did not load
-function mapsNotLoaded(){
-    alert("Google maps has failed, Map will not load. Sorry for inconvenience");    
+function mapsNotLoaded() {
+    alert("Google maps has failed, Map will not load. Sorry for inconvenience");
 }
 
 // Call zomato API and present with a list of restaurants nearby
@@ -142,12 +142,9 @@ function callAPI(callback) {
         response.json().then(function (json) {
             callback(json.restaurants);
         }).catch(function (error) {
-            alert("Failure parsing response, inconvenience is regretted, you can mail the developer with the following \n " + error.message );
+            alert("Failure parsing response, inconvenience is regretted, you can mail the developer with the following \n " + error.message);
         });
     }).catch(function (error) {
-        alert("Failure while getting data, inconvenience is regretted, you can mail the developer with the following \n " + error.message );
+        alert("Failure while getting data, inconvenience is regretted, you can mail the developer with the following \n " + error.message);
     });
 }
-
-
-
