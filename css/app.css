@@ -60,7 +60,6 @@ body {
     padding-left: 5px;
 }
 
-
 .sidenav a {
     text-decoration: none;
     color: grey;
@@ -92,16 +91,6 @@ body {
 @media screen and (max-height: 450px) {
     .sidenav {padding-top: 15px;}
     .sidenav a {font-size: 18px;}
-}
-
-.nav-section {
-    width: 48px;   
-    background: black;
-    height: 100vh;
-    position: absolute;
-    top: 0;
-    color: white;
-    text-align: center;
 }
 
 .sidenav .hamburger-icon {
@@ -159,10 +148,6 @@ body {
 
 .info-window .cuisines {
     font-style: italic;
-}
-
-.inline-block {
-    display: inline-block !important;
 }
 
 .search-icon svg {
