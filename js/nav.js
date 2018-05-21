@@ -13,12 +13,12 @@ document.addEventListener("DOMContentLoaded", function(event) {
 });
 
 function hamburgerStart() {
-        sidenavElement.style.width = "200px";
-        containerElement.style.marginLeft = "200px";
-        hamburgerElement.style.display = "none";
-        overlayElement.style.display = "block";
-        closeElement.style.display = "block";
-    }
+    sidenavElement.style.width = "200px";
+    containerElement.style.marginLeft = "200px";
+    hamburgerElement.style.display = "none";
+    overlayElement.style.display = "block";
+    closeElement.style.display = "block";
+}
 
 function hamburgerClose() {
     sidenavElement.style.width = "0";

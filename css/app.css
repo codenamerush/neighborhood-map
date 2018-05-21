@@ -3,6 +3,7 @@ body {
     margin:0;
     padding: 0;
 }
+
 .sidenav {
     height: 100%;
     width: 0;
@@ -50,7 +51,6 @@ body {
     display: none;
 }
 
-
 .container {
     transition: margin-left .5s;
     height: 100vh;
@@ -58,8 +58,8 @@ body {
 }
 
 @media screen and (max-height: 450px) {
-  .sidenav {padding-top: 15px;}
-  .sidenav a {font-size: 18px;}
+    .sidenav {padding-top: 15px;}
+    .sidenav a {font-size: 18px;}
 }
 
 .nav-section {
@@ -89,7 +89,7 @@ body {
     display: none;
 }
 
-#map {
+.google-map {
     margin-left: 48px;
     overflow: hidden;
     top: 0;
@@ -103,6 +103,7 @@ body {
     height: 240px;
     background-size: contain; 
 }
+
 .info-window .wrapper {
     background:  rgba(0,0,0,0.5);
     color: white;

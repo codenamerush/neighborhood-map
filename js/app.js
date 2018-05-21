@@ -1,3 +1,5 @@
+"use strict";
+
 var map;
 var markers = [];
 var infoWindow;
@@ -92,17 +94,9 @@ function initMap() {
 }
 
 // Just notifying user if maps API did not load
-setTimeout(function () {
-    try {
-        if (loaded === 1) {
-        } else {
-            alert("Google maps has failed, Map will not load. Sorry for inconvenience");
-        }
-    } catch (e) {
-        alert("Google maps has failed, Map will not load. Sorry for inconvenience");
-    }
-}, 5000);
-
+function mapsNotLoaded(){
+    alert("Google maps has failed, Map will not load. Sorry for inconvenience");    
+}
 
 // Call zomato API and present with a list of restaurants nearby
 function callAPI(keyword, callback) {
