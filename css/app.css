@@ -66,6 +66,8 @@ body {
     display: block;
     transition: 0.3s;
     width: 210px;
+    border-bottom: solid 1px grey;
+    padding: 4px 0;
 }
 
 .sidenav a:hover {
@@ -101,6 +103,10 @@ body {
     right: 10px;
     margin-top: 10px;
     font-size: 25px;
+}
+
+.sidenav .close-btn {
+    display: none;
 }
 
 .sidenav.active .hamburger-icon {
