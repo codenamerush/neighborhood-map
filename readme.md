@@ -1,7 +1,7 @@
 # Running the project
 1. Download/clone the project.
 2. If downloaded, unzip the file.
-3. Run the index.html file.
+3. Run the index.html file or See it live at https://codenamerush.github.io/neighborhood-map/
 
 # Additional Information
 
