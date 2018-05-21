@@ -27,9 +27,9 @@ var ViewModel = function () {
         hamburgerClose();
     };
     this.searchNeighbourhood = function () {
-        callAPI(this.search, loadRestaurants);
+        console.log("Add filtering logic here");
     };
-    callAPI(null, loadRestaurants);
+    callAPI(loadRestaurants);
 };
 
 // Load locations in locations observable and tag markers on map
@@ -99,14 +99,9 @@ function mapsNotLoaded(){
 }
 
 // Call zomato API and present with a list of restaurants nearby
-function callAPI(keyword, callback) {
+function callAPI(callback) {
     var apiKey = 'ec4570965cbd2914d9d4677fa91883dc';
-    var url = '';
-    if (keyword) {
-        url = "https://developers.zomato.com/api/v2.1/search?entity_id=11311&entity_type=subzone&q=" + keyword
-    } else {
-        url = "https://developers.zomato.com/api/v2.1/location_details?entity_id=11311&entity_type=subzone"
-    }
+    var url = "https://developers.zomato.com/api/v2.1/search?entity_id=11311&entity_type=subzone";
     fetch(url, {
         headers: {
             'user-key': apiKey,
@@ -114,8 +109,7 @@ function callAPI(keyword, callback) {
         }
     }).then(function (response) {
         response.json().then(function (json) {
-            var restaurants = keyword ? json.restaurants : json.best_rated_restaurant;
-            callback(restaurants);
+            callback(json.restaurants);
         }).catch(function (error) {
             alert("Failure parsing response, inconvenience is regretted, you can mail the developer with the following \n " + error.message );
         });
