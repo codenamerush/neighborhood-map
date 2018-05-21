@@ -12,24 +12,24 @@
 
 <body>
 
-<div class="sidenav" data-bind="css: sidenav">
-    <div class="close-btn" data-bind="click: disableSideNav">&times;</div>
-    <div class="hamburger-icon" data-bind="click: enableSideNav"> &#9776;</div>
-    <div class="nav-div">
-        <select data-bind="options: cuisines, value: search"></select>
+    <div class="sidenav" data-bind="css: sidenav">
+        <div class="close-btn" data-bind="click: disableSideNav">&times;</div>
+        <div class="hamburger-icon" data-bind="click: enableSideNav"> &#9776;</div>
+        <div class="nav-div">
+            <select data-bind="options: cuisines, value: search"></select>
+        </div>
+        <div class="nav-div cuisines-list" data-bind="foreach: locations">
+            <a href="#" class="list-item" data-bind="text: name, click: $parent.loadInfo, visible: isLocationVisible"></a>
+        </div>
     </div>
-    <div class="nav-div cuisines-list" data-bind="foreach: locations">
-        <a href="#" class="list-item" data-bind="text: name, click: $parent.loadInfo, visible: isLocationVisible"></a>
+
+    <div class="container">
+        <div id="map" class="google-map"></div>
     </div>
-</div>
 
-<div class="container">
-    <div id="map" class="google-map"></div>
-</div>
-
-
-<script async defer onerror="mapsNotLoaded()" src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyCUEPzE3ruzttD4X1XZUfJXPJY4LY_jux4&v=3&callback=initMap"></script>
-<script src="./js/knockout-3.4.2.js"></script>
-<script src="./js/app.js"></script>
+    <script src="./js/app.js"></script>
+    <script async defer onerror="mapsNotLoaded()" src="https://maps.googleapis.com/maps/api/js?libraries=places,geometry,drawing&key=AIzaSyCUEPzE3ruzttD4X1XZUfJXPJY4LY_jux4&v=3&callback=initMap"></script>
+    <script src="./js/knockout-3.4.2.js"></script>
 </body>
+
 </html>
