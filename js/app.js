@@ -8,12 +8,24 @@ var modelInstance;
 
 var ViewModel = function () {
     var self = this;
+    this.sidenav = ko.observable('disabled');
     this.cuisines = ko.observableArray([]);
     this.locations = ko.observableArray([]);
     this.search = ko.observable();
+    this.enableSideNav = function(){
+        self.sidenav('active');
+    }
+    this.disableSideNav = function(){
+        self.sidenav('disabled');
+    }
     this.loadInfo = function (element) {
+        self.sidenav('disabled');
         self.showInfoBox(element.index);
         markers[element.index].bounceStop();
+        map.setCenter({
+            lat: markers[element.index].position.lat(),
+            lng: markers[element.index].position.lng()
+        });
         hamburgerClose();
     };
     this.search.subscribe(function(cuisine) {
