@@ -8,10 +8,33 @@ var modelInstance;
 
 var ViewModel = function () {
     var self = this;
-    var loadRestaurants = function (restaurants) {
+    this.cuisines = ko.observableArray([]);
+    this.locations = ko.observableArray([]);
+    this.search = ko.observable();
+    this.loadInfo = function (element) {
+        self.showInfoBox(element.index);
+        markers[element.index].bounceStop();
+        hamburgerClose();
+    };
+    this.search.subscribe(function(cuisine) {
+        self.locations().forEach(function (location) {
+            var isLocationVisible = (cuisine === 'All' || location.cuisines.indexOf(cuisine) > -1);
+            location.isLocationVisible(isLocationVisible);
+            markers[location.index].setMap(isLocationVisible ? map : null);
+        });
+    });
+    callAPI(function (restaurants) {
         self.locations.removeAll();
+        self.cuisines.push('All');
         restaurants.forEach(function (r, index) {
             r.restaurant.index = index;
+            r.restaurant.isLocationVisible = ko.observable(true);
+            r.restaurant.cuisines.split(",").forEach(function(cuisine) {
+                cuisine = cuisine.trim();
+                if (self.cuisines.indexOf(cuisine) < 0 ){
+                    self.cuisines.push(cuisine);
+                }
+            });
             self.locations.push(r.restaurant);
         });
         markers.forEach(function (m) {
@@ -19,17 +42,7 @@ var ViewModel = function () {
         });
         markers = [];
         self.loadLocations();
-    };
-    this.locations = ko.observableArray([]);
-    this.search = '';
-    this.loadInfo = function (element) {
-        self.showMarker(element.index);
-        hamburgerClose();
-    };
-    this.searchNeighbourhood = function () {
-        console.log("Add filtering logic here");
-    };
-    callAPI(loadRestaurants);
+    });
 };
 
 // Load locations in locations observable and tag markers on map
@@ -44,20 +57,18 @@ ViewModel.prototype.loadLocations = function () {
             },
             animation: google.maps.Animation.DROP
         });
+
         markers[index] = element;
 
         element.addListener('click', function () {
-            element.setAnimation(google.maps.Animation.BOUNCE);
-            setTimeout(function () {
-                element.setAnimation();
-            }, 2000);
-            self.showMarker(index);
+            element.bounceStop();
+            self.showInfoBox(index);
         });
     });
 };
 
-// Show markers for each marker of given index in locations observable
-ViewModel.prototype.showMarker = function (index) {
+// Show Info box for each marker of given index in locations observable
+ViewModel.prototype.showInfoBox = function (index) {
     infoWindow.setContent(this.getMarkerContent(index));
     infoWindow.open(map, markers[index]);
 };
@@ -84,6 +95,14 @@ function initMap() {
         },
         zoom: 14
     });
+
+    google.maps.Marker.prototype.bounceStop = function(){
+        var element = this;
+        element.setAnimation(google.maps.Animation.BOUNCE);
+        setTimeout(function () {
+            element.setAnimation();
+        }, 2000);
+    };
 
     infoWindow = new google.maps.InfoWindow({
         maxWidth: 320
